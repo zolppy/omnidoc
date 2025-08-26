@@ -1,4 +1,4 @@
-# OmniDoc - RAG Chatbot with Groq + LangChain
+# RAG Chatbot with Groq + LangChain
 
 A Retrieval-Augmented Generation (RAG) chatbot application that leverages Groq's high-performance language models and LangChain framework to provide intelligent responses based on document content.
 
@@ -24,8 +24,8 @@ This project implements a document-based question answering system that:
 
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
-cd rag-chatbot
+git clone git@github.com:zolppy/omnidoc.git
+cd omnidoc
 ```
 
 2. Install required dependencies:
@@ -41,14 +41,19 @@ export GROQ_API_KEY=your_groq_api_key_here
 ## 📁 Project Structure
 
 ```
-project/
+omnidoc/
 ├── app.py                 # Main Streamlit application
-├── logger.py             # Logging configuration and setup
-├── rag.py               # Document processing and vector store management
-├── llm.py               # LLM model initialization
-├── data/                # Directory for PDF documents (create this)
-├── logs/                # Auto-generated log files directory
-└── vector_store/        # Auto-generated vector store directory
+├── README.md              # Project documentation (this file)
+├── LICENSE                # MIT License file
+├── requirements.txt       # Python dependencies
+├── utils/
+│   ├── __init__.py       # Package initialization
+│   ├── logger.py         # Logging configuration and setup
+│   ├── rag.py            # Document processing and vector store management
+│   └── llm.py            # LLM model initialization
+├── data/                 # Directory for PDF documents (create this)
+├── logs/                 # Auto-generated log files directory
+└── vector_store/         # Auto-generated vector store directory
 ```
 
 ## ⚙️ Configuration
@@ -57,10 +62,10 @@ project/
 - `GROQ_API_KEY`: Your Groq API key (required)
 
 ### Optional Parameters
-- **Model Selection**: Change the default model in `llm.py` (default: "llama3-70b-8192")
-- **Document Directory**: Modify the path in `rag.py` (default: "data/")
+- **Model Selection**: Change the default model in `utils/llm.py` (default: "llama3-70b-8192")
+- **Document Directory**: Modify the path in `utils/rag.py` (default: "data/")
 - **Chunk Settings**: Adjust chunk size and overlap in `split_documents()`
-- **Logging**: Configure log levels and file paths in `logger.py`
+- **Logging**: Configure log levels and file paths in `utils/logger.py`
 
 ## 🎯 Usage
 
@@ -79,23 +84,23 @@ streamlit run app.py
 
 ## 🔧 Components
 
-### Logger Module
+### Logger Module (`utils/logger.py`)
 - Configurable logging to both console and files
 - Rotating file handlers for main logs and error logs
 - Custom formatting with timestamps, log levels, and source information
 
-### RAG Module
+### RAG Module (`utils/rag.py`)
 - Document loading from PDF directories
 - Text splitting with configurable chunk parameters
 - Vector store management with persistent storage
 - Support for both building new and loading existing vector stores
 
-### LLM Module
+### LLM Module (`utils/llm.py`)
 - Groq API integration
 - Configurable model selection and temperature
 - Error handling for model initialization
 
-### Application
+### Application (`app.py`)
 - Streamlit-based web interface
 - Conversation history management
 - Retrieval chain implementation with context-aware responses
@@ -112,16 +117,17 @@ The application generates logs in the `logs/` directory:
 1. **GROQ_API_KEY not set**: Ensure you've set the environment variable
 2. **No documents found**: Place PDF files in the `data/` directory
 3. **Vector store errors**: Use "force_rebuild=True" or delete the vector_store directory to rebuild
+4. **Module import errors**: Ensure you're running from the project root directory
 
 ### Debug Mode
-Enable debug logging by modifying the console_level parameter in `logger.py`:
+Enable debug logging by modifying the console_level parameter in `utils/logger.py`:
 ```python
 console_level=logging.DEBUG
 ```
 
 ## 📝 License
 
-This project is available for use and modification.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🤝 Contributing
 
