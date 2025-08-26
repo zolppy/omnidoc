@@ -1,0 +1,5 @@
+.venv
+logs
+vector_store
+__pycache__
+data
